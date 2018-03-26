@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <style>
+        .submit, .login{
+            width: 100px;
+            height: 30px;
+            background-color: #ffa77a;
+        }
+        .haha{
+            width: 100px;
+            height: 0;
+            background-color: #a4ffde;
+        }
+    </style>
+</head>
+<body>
+<form action="" method="post">
+    <label>账户
+        <input type="text" class="account">
+    </label>
+    <label>密码
+        <input type="text" class="psw">
+    </label>
+    <div class="submit">注册</div>
+    <div class="login">登录</div>
+</form>
+<div class="hello">
+    <input type="text" class="hi">
+    <ul class="haha"></ul>
+</div>
+<script>
+    $(document).ready(function(){
+        $(".submit").click(function(){
+            let data = {
+                account: $('.account').val(),
+                pwd: $('.psw').val()
+            };
+            console.log(data);
+            $.post("localhost:3000/register", data, function (data,status) {
+                console.log("数据: \n" + data.msg + "\n状态: " + status)
+            });
+        });
+        $('.login').click(function () {
+            let data = {
+                account: $('.account').val(),
+                pwd: $('.psw').val()
+            };
+            $.post("/login", data, function (data,status) {
+                console.log("数据: \n" + data.msg + "\n状态: " + status)
+            });
+        });
+        let arr = ['asfda', 'sfsdf', 'sfer', 'sf', 'hi', 'hihs', 'hisfa'];
+        $(".hi").keydown(function () {
+            $('.haha').animate({height: '0'})
+            setTimeout(function () {
+                let value = $('.hi').val()
+                let haa = arr.filter((a) => {
+                    return a.search(value) >= 0
+                });
+                console.log(haa)
+                let cc = haa.map((a)=>{
+                    return `<li>${a}</li>`
+                })
+                $('.haha').html(cc)
+                $('.haha').animate({height: '100px'})
+            },1000)
+        })
+    });
+    console.log(new Date())
+    let d1 = new Date();
+    let d2 = new Date(d1);
+    d2.setFullYear(d2.getFullYear()+1);
+    d2.setDate(d2.getDate()-1);
+    console.log(d2)
+</script>
+</body>
+</html>
